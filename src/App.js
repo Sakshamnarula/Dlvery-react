@@ -10,14 +10,14 @@ import { Route, Switch, BrowserRouter as Router } from 'react-router-dom'
 function App() {
   return (
     <div className="App">
-     <Router>
-     <Navigation/>
+      <Router>
+        <Navigation />
 
-      <Switch>
-    <Route exact path='/inventory' component={InventoryComponent}></Route>
-<Route exact path='/add' component={AddInventoryComponent}></Route>
-</Switch>
-</Router>
+        <Switch>
+          <Route exact path='/inventory' component={InventoryComponent}></Route>
+          <Route exact path='/add' component={AddInventoryComponent}></Route>
+        </Switch>
+      </Router>
     </div>
   );
 }

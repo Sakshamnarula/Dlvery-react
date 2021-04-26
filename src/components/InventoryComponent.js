@@ -10,19 +10,18 @@ class InventoryComponent extends React.Component {
             inventory: []
         }
     }
-     fetchData()
-     {
+    fetchData() {
         InventoryService.getAllInventory().then((Response) => {
-            this.setState({inventory: Response.data})
+            this.setState({ inventory: Response.data })
             console.log(this.state.inventory);
         })
-     }
+    }
     componentDidMount() {
         //InventoryService.getAllInventory().then((response) => {
-         //   this.setState({ inventory: response.data });
+        //   this.setState({ inventory: response.data });
         //})
         this.fetchData()
-       
+
 
     }
 
