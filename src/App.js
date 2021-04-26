@@ -11,8 +11,7 @@ function App() {
   return (
     <div className="App">
       <Router>
-        <Navigation />
-
+        <Navigation/>
         <Switch>
           <Route exact path='/inventory' component={InventoryComponent}></Route>
           <Route exact path='/add' component={AddInventoryComponent}></Route>

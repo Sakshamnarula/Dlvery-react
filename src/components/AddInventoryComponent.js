@@ -61,7 +61,7 @@ class AddInventoryComponent extends React.Component {
                                     </div>
                                     <div className="form-group">
                                         <label>
-                                            Product Name
+                                            Product Ka Naam
                                    </label>
                                         <input placeholder="ProductName" name="productName" className="form-control" value={this.state.productName} onChange={this.changeProductNameHandler}></input>
                                     </div>
