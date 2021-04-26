@@ -10,11 +10,11 @@ import { Route, Switch, BrowserRouter as Router } from 'react-router-dom'
 function App() {
   return (
     <div className="App">
+      <Navigation />
       <Router>
-        <Navigation/>
         <Switch>
-          <Route exact path='/inventory' component={InventoryComponent}></Route>
-          <Route exact path='/add' component={AddInventoryComponent}></Route>
+          <Route exact path='/inventory/all' component={InventoryComponent}></Route>
+          <Route exact path='/inventory/add' component={AddInventoryComponent}></Route>
         </Switch>
       </Router>
     </div>

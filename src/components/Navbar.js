@@ -1,22 +1,25 @@
 import React from 'react';
 import { Navbar, Nav, Form, Button } from 'react-bootstrap';
 import { withRouter } from 'react-router-dom';
+import headerlogo from '../assets/header-image.jpg'
 
-const Navigation = (props) => {
-    console.log(props);
+class Navigation extends React.Component{
+    // console.log(props);
+    render(){
     return (
-        <Navbar bg="primary" variant="dark">
-            <Navbar.Brand href="#home">React Button</Navbar.Brand>
-            <Navbar.Toggle aria-controls="basic-navbar-nav" />
-            <Navbar.Collapse id="basic-navbar-nav">
-                <Nav className="mr-auto">
+        <div >
+        <span className="bg-primary p-5"><img src={headerlogo} ></img></span>
+        <Navbar bg="primary" className="p-2 pl-5" variant="dark">
+            <Navbar.Brand href="/">DLvery</Navbar.Brand>
+                <Nav >
                     <Nav.Link href="/">Home</Nav.Link>
-                    <Nav.Link href="/inventory">View Inventory</Nav.Link>
-                    <Nav.Link href="/add">Add Inventory</Nav.Link>
+                    <Nav.Link href="/inventory/all">View Inventory</Nav.Link>
+                    <Nav.Link href="/inventory/add">Add Inventory</Nav.Link>
                 </Nav>
-            </Navbar.Collapse>
         </Navbar>
+        </div>
     )
+    }
 }
 
-export default withRouter(Navigation);
+export default Navigation;
