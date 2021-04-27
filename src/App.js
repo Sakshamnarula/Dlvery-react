@@ -4,6 +4,11 @@ import InventoryComponent from './components/InventoryComponent';
 import "bootstrap/dist/css/bootstrap.css"
 import AddInventoryComponent from './components/AddInventoryComponent';
 import Navigation from './components/Navbar';
+// import DatePicker from 'react-date-picker/dist/DatePicker';
+// import "react-datepicker/src/stylesheets/datepicker.css"
+// import "../node_modules/react-datepicker/src/stylesheets/datepicker.css";
+// import '../node_modules/bootstrap/dist/css/bootstrap.min.css';
+
 
 import { Route, Switch, BrowserRouter as Router } from 'react-router-dom'
 

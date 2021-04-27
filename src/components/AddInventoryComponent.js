@@ -1,6 +1,9 @@
 import React from 'react';
 import InventoryService from '../services/InventoryService';
-import InventoryComponent from './InventoryComponent'
+// import moment from 'moment'; 
+import DatePicker from 'react-date-picker/dist/DatePicker';
+// import "react-datepicker/src/stylesheets/datepicker.css"
+
 class AddInventoryComponent extends React.Component {
 
 
@@ -12,15 +15,15 @@ class AddInventoryComponent extends React.Component {
             priority: "",
             checkInDate: "",
             productCategory: "",
-            customerAddress:"",
-            contactNumber:"",
-            checkOutDate:"30, APR, 2021",
-            status:"Added",
-            executive:{
-                exName:"To Be Assigned",
+            customerAddress: "",
+            contactNumber: "",
+            checkOutDate: "30/04/2021",
+            status: "Added",
+            executive: {
+                exName: "To Be Assigned",
                 exId: "",
                 exContact: ""
-            }          
+            }
         }
         this.changePriorityHandler = this.changePriorityHandler.bind(this)
         this.changeProductIdHandler = this.changeProductIdHandler.bind(this)
@@ -34,7 +37,7 @@ class AddInventoryComponent extends React.Component {
 
     addInventory = (i) => {
         i.preventDefault()
-        console.log("HAHAHAHHAH"+this.state.productCategory)
+        console.log("HAHAHAHHAH" + this.state.checkInDate)
         // let inventory = { productId: this.state.productId, productName: this.state.productName, priority: this.state.priority, checkInDate: this.state.checkInDate, productCategory: this.state.productCategory }
         let inventory = this.state;
         InventoryService.addInventory(inventory)
@@ -51,7 +54,7 @@ class AddInventoryComponent extends React.Component {
         this.setState({ priority: event.target.value })
     }
     changeCheckInDateHandler = (event) => {
-        this.setState({ checkInDate: event.target.value })
+        this.setState({ checkInDate: event.data.value })
     }
     changeCustomerAddressHandler = (event) => {
         this.setState({ customerAddress: event.target.value })
@@ -83,7 +86,7 @@ class AddInventoryComponent extends React.Component {
                                 <form>
                                     <div className="col-md">
                                         <div className="form-group row">
-                                                Product Id
+                                            Product Id
                                             <input placeholder="ProductId" name="productId" className="form-control" value={this.state.productId} onChange={this.changeProductIdHandler}></input>
                                         </div>
                                         <div className="form-group row">
@@ -109,8 +112,14 @@ class AddInventoryComponent extends React.Component {
                                         <div className="form-group row">
                                             <label>
                                                 Check In Date
-                                   </label>
-                                            <input placeholder="Check In Date" name="checkInDate" className="form-control" value={this.state.checkInDate} onChange={this.changeCheckInDateHandler}></input>
+                                        </label>
+                                            <DatePicker
+                                                selected={this.state.checkInDate}
+                                                onChange={this.changeCheckInDateHandler}
+                                                name="startDate"
+                                                dateFormat="dd/MM/yyyy"
+                                            />
+                                            {/* <input type="Date" name="checkInDate" className="form-control" value={this.state.checkInDate} onChange={this.changeCheckInDateHandler}></input> */}
                                         </div>
                                     </div>
                                     <div className="col-md">
