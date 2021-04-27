@@ -16,13 +16,13 @@ class InventoryComponent extends React.Component {
             console.log(this.state.inventory);
         })
     }
+
+
     componentDidMount() {
         //InventoryService.getAllInventory().then((response) => {
         //   this.setState({ inventory: response.data });
         //})
         this.fetchData()
-
-
     }
 
     render() {
@@ -35,6 +35,13 @@ class InventoryComponent extends React.Component {
                             <td>Product Id</td>
                             <td>Product Name</td>
                             <td>Delivery Priority</td>
+                            <td>product Category</td>
+                            <td>checkInDate</td>
+                            <td>checkOutDate</td>
+                            <td>customerAddress</td>
+                            <td>contactNumber</td>
+                            <td>status</td>
+                            <td>executive</td>
                         </tr>
                     </thead>
                     <tbody>
@@ -45,6 +52,15 @@ class InventoryComponent extends React.Component {
                                         <td>{iv.productId}</td>
                                         <td>{iv.productName}</td>
                                         <td>{iv.priority}</td>
+                                        <td>{iv.productCategory}</td>
+                                        <td>{iv.checkInDate}</td>
+                                        <td>{iv.checkOutDate}</td>
+                                        <td>{iv.customerAddress}</td>
+                                        <td>{iv.contactNumber}</td>
+                                        <td>{iv.status}</td>
+                                        <td>{iv.executive.exName}</td>
+
+
                                     </tr>
                             )
                         }
