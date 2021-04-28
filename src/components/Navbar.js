@@ -15,6 +15,7 @@ class Navigation extends React.Component{
                     <Nav.Link href="/">Home</Nav.Link>
                     <Nav.Link href="/inventory/all">View Inventory</Nav.Link>
                     <Nav.Link href="/inventory/add">Add Inventory</Nav.Link>
+                    <Nav.Link href="/executive/add">Add Executive</Nav.Link>
                 </Nav>
         </Navbar>
         </div>

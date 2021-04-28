@@ -3,6 +3,7 @@ import './App.css';
 import InventoryComponent from './components/InventoryComponent';
 import "bootstrap/dist/css/bootstrap.css"
 import AddInventoryComponent from './components/AddInventoryComponent';
+import AddExecutiveComponent from './components/AddExecutive';
 import Navigation from './components/Navbar';
 // import DatePicker from 'react-date-picker/dist/DatePicker';
 // import "react-datepicker/dist/react-datepicker.css";
@@ -21,6 +22,7 @@ function App() {
         <Switch>
           <Route exact path='/inventory/all' component={InventoryComponent} ></Route>
           <Route exact path='/inventory/add' component={AddInventoryComponent}></Route>
+          <Route exact path='/executive/add' component={AddExecutiveComponent}></Route>
         </Switch>
       </Router>
     </div>
