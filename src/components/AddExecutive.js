@@ -17,13 +17,20 @@ class AddExecutiveComponent extends React.Component {
         this.changeExNameHandler = this.changeExNameHandler.bind(this)
         this.changeExContactHandler = this.changeExContactHandler.bind(this)
         // this.changeProductNameHandler = this.changeProductNameHandler.bind(this)
+        this.fetchExecutiveCount = this.fetchExecutiveCount.bind(this)
     }
 
     addExecutive = (e) => {
         e.preventDefault()
         let executive = this.state;
-        console.log("MethodaddExecutive" + this.state)
+        // console.log("MethodaddExecutive" + this.state)
         InventoryService.addExecutive(executive)
+        // this.componentDidMount()
+        this.setState({
+            exName: "",
+            exContact: ""
+        });
+        this.fetchExecutiveCount()
     }
 
     changeExNameHandler = (event) => {
@@ -32,15 +39,26 @@ class AddExecutiveComponent extends React.Component {
     changeExContactHandler = (event) => {
         this.setState({ exContact: event.target.value })
     }
-    componentDidMount() {
-        // InventoryService.();
+
+    fetchExecutiveCount = () => {
         InventoryService.getAllExecutive().then((Response) => {
             let idToSet = Response.data.length + 1
-            console.log("Comp Did Mount" + idToSet);
+            console.log("FetchExecutiveCount" + idToSet);
             this.setState({ exId: idToSet })   // console.log( " >>>> " + new Date());
             // this.setState({ executive: Response.data })   // console.log( " >>>> " + new Date());
         })
     }
+
+    componentDidMount() {
+        console.log("compDidMount")
+        this.fetchExecutiveCount()
+    }
+
+    // componentDidUpdate(prevProps, prevState) {
+    //     if (prevState.name !== this.state.name) {
+    //       this.fetchExecutiveCount();
+    //     }
+    // }
 
     render() {
         return (
