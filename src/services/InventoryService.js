@@ -14,12 +14,12 @@ class InventoryService {
         return axios.post(inventory_add, inventory)
     }
     addExecutive(executive){
-        console.log("AXIOSAddExecutive" + executive)
+        // console.log("AXIOSAddExecutive" + executive)
 
         return axios.post(executive_add, executive)
     }
     getAllExecutive() {
-        console.log("AXIOSgetAllExecutive")
+        // console.log("AXIOSgetAllExecutive")
         return axios.get(executive_all)
     }
 }
