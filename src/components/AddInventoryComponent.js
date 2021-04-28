@@ -1,11 +1,12 @@
 import React from 'react';
 import InventoryService from '../services/InventoryService';
 // import moment from 'moment'; 
-import DatePicker from 'react-date-picker/dist/DatePicker';
-// import "react-datepicker/src/stylesheets/datepicker.css"
+import DatePicker from 'react-date-picker';
+import 'react-date-picker/dist/DatePicker.css';
 
 class AddInventoryComponent extends React.Component {
 
+    
 
     constructor(props) {
         super(props)
@@ -17,7 +18,7 @@ class AddInventoryComponent extends React.Component {
             productCategory: "",
             customerAddress: "",
             contactNumber: "",
-            checkOutDate: "30/04/2021",
+            checkOutDate: "",
             status: "Added",
             executive: {
                 exName: "To Be Assigned",
@@ -25,6 +26,9 @@ class AddInventoryComponent extends React.Component {
                 exContact: ""
             }
         }
+
+        // const [checkInDate, changeCheckInDateHandler] = this.setState(new Date());
+
         this.changePriorityHandler = this.changePriorityHandler.bind(this)
         this.changeProductIdHandler = this.changeProductIdHandler.bind(this)
         this.changeProductNameHandler = this.changeProductNameHandler.bind(this)
@@ -54,7 +58,9 @@ class AddInventoryComponent extends React.Component {
         this.setState({ priority: event.target.value })
     }
     changeCheckInDateHandler = (event) => {
-        this.setState({ checkInDate: event.data.value })
+        console.log("checkInDateHandler"+ new Date(event).toLocaleDateString() )
+        // let dt = new Date(event).toLocaleString();
+        this.setState({ checkInDate: new Date(event) })
     }
     changeCustomerAddressHandler = (event) => {
         this.setState({ customerAddress: event.target.value })
@@ -66,6 +72,7 @@ class AddInventoryComponent extends React.Component {
         this.setState({ contactNumber: event.target.value })
     }
     componentDidMount() {
+        console.log("THIS IS THE ADD INVENTORY COMP")
         //InventoryService.getAllInventory().then((response) => {
         //   this.setState({ inventory: response.data });
         //})
@@ -114,12 +121,14 @@ class AddInventoryComponent extends React.Component {
                                                 Check In Date
                                         </label>
                                             <DatePicker
+                                                className="form-control"
+                                                value={this.state.checkInDate}
                                                 selected={this.state.checkInDate}
                                                 onChange={this.changeCheckInDateHandler}
                                                 name="startDate"
                                                 dateFormat="dd/MM/yyyy"
                                             />
-                                            {/* <input type="Date" name="checkInDate" className="form-control" value={this.state.checkInDate} onChange={this.changeCheckInDateHandler}></input> */}
+                                            {/* <input type="text" name="checkInDate" className="form-control" placeHolder="Check In Date" value={this.state.checkInDate} onChange={this.changeCheckInDateHandler}></input> */}
                                         </div>
                                     </div>
                                     <div className="col-md">

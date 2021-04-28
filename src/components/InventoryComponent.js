@@ -9,11 +9,22 @@ class InventoryComponent extends React.Component {
         this.state = {
             inventory: []
         }
+        // this.changePriorityHandler = this.changePriorityHandler.bind(this)
+
+        this.parseDate = this.parseDate.bind(this)
     }
+
+    parseDate = (dt) => {
+        if (dt == null)
+            return "Pending"
+        return new Date(dt).toLocaleDateString()
+    }
+
     fetchData() {
         InventoryService.getAllInventory().then((Response) => {
             this.setState({ inventory: Response.data })
-            console.log(this.state.inventory);
+            // console.log( " >>>> " + new Date());
+            console.log("Aaj Ki Date > " + new Date(this.state.inventory[3].checkInDate))
         })
     }
 
@@ -22,6 +33,7 @@ class InventoryComponent extends React.Component {
         //InventoryService.getAllInventory().then((response) => {
         //   this.setState({ inventory: response.data });
         //})
+        console.log("THIS IS THE INVENTORY COMP")
         this.fetchData()
     }
 
@@ -47,20 +59,18 @@ class InventoryComponent extends React.Component {
                     <tbody>
                         {
                             this.state.inventory.map(
-                                iv =>
-                                    <tr key="iv.productId">
+                                (iv, index) =>
+                                    <tr key={index}>
                                         <td>{iv.productId}</td>
                                         <td>{iv.productName}</td>
                                         <td>{iv.priority}</td>
                                         <td>{iv.productCategory}</td>
-                                        <td>{iv.checkInDate}</td>
-                                        <td>{iv.checkOutDate}</td>
+                                        <td>{this.parseDate(iv.checkInDate)}</td>
+                                        <td>{this.parseDate(iv.checkOutDate)}</td>
                                         <td>{iv.customerAddress}</td>
                                         <td>{iv.contactNumber}</td>
                                         <td>{iv.status}</td>
                                         <td>{iv.executive.exName}</td>
-
-
                                     </tr>
                             )
                         }
