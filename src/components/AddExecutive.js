@@ -77,13 +77,13 @@ class AddExecutiveComponent extends React.Component {
                                         <div className="form-group row">
                                             <label>
                                                 Executive Name
-                                   </label>
+                                            </label>
                                             <input placeholder="Executive Name" name="exName" className="form-control" value={this.state.exName} onChange={this.changeExNameHandler}></input>
                                         </div>
                                         <div className="form-group row">
                                             <label>
                                                 Executive Contact
-                                   </label>
+                                            </label>
                                             <input placeholder="Executive Contact" name="exContact" className="form-control" value={this.state.exContact} onChange={this.changeExContactHandler}></input>
                                         </div>
                                     </div>
