@@ -91,10 +91,14 @@ import InventoryService from '../services/InventoryService';
 export default InventoryComponent;
 
 
-function InventoryComponent() {
+function InventoryComponent(props) {
 
     const [inventory, setInventories] = useState([]);
     // const[]
+    const [disp, setDisp] = useState(false);
+    // const[count,setCount] = useState(0)
+
+
 
     function parseDate(dt) {
         if (dt == null)
@@ -106,6 +110,7 @@ function InventoryComponent() {
         InventoryService.getAllInventory().then((Response) => {
             // this.setState({ inventory: Response.data })
             setInventories(Response.data)
+            // setCount(count+1)
             // console.log( " >>>> " + Response.data.executive.exName);
             // console.log("Aaj Ki Date > " + new Date(this.state.inventory[3].checkInDate))
         })
@@ -113,8 +118,24 @@ function InventoryComponent() {
 
     useEffect(() => {
         console.log("InventoryComp Rendered - useEffect Triggered")
+        // 
         fetchData();
-    })
+        if (props.type === 'assignExecutive') {
+            setDisp(false)
+        }
+        else {
+            setDisp(true)
+        }
+    },[])
+
+    function checkBoxModify(event) {
+
+        if(event.target.checked)
+        props.onChecked(event.target.value)
+        else
+        props.onUnChecked(event.target.value)
+        
+    }
 
     return (
         <div>
@@ -122,6 +143,7 @@ function InventoryComponent() {
             <table className="table table-striped">
                 <thead>
                     <tr>
+                        <td hidden={disp}>Selected</td>
                         <td>Product Id</td>
                         <td>Product Name</td>
                         <td>Delivery Priority</td>
@@ -139,6 +161,7 @@ function InventoryComponent() {
                         inventory.map(
                             (iv, index) =>
                                 <tr key={index}>
+                                    <td hidden={disp}> <input type="checkbox" value={iv.productId}  onChange={checkBoxModify}></input></td>
                                     <td>{iv.productId}</td>
                                     <td>{iv.productName}</td>
                                     <td>{iv.priority}</td>
