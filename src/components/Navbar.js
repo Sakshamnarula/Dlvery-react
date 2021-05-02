@@ -1,6 +1,5 @@
 import React from 'react';
-import { Navbar, Nav, Form, Button } from 'react-bootstrap';
-import { withRouter } from 'react-router-dom';
+import { Navbar, Nav} from 'react-bootstrap';
 import headerlogo from '../assets/header-image.jpg'
 
 class Navigation extends React.Component{
@@ -8,7 +7,7 @@ class Navigation extends React.Component{
     render(){
     return (
         <div >
-        <span className="bg-primary p-5"><img src={headerlogo} ></img></span>
+        <span className="bg-primary p-5"><img src={headerlogo} alt="blank"></img></span>
         <Navbar bg="primary" className="p-2 pl-5" variant="dark">
             <Navbar.Brand href="/">DLvery</Navbar.Brand>
                 <Nav >

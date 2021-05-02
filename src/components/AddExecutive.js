@@ -1,8 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import InventoryService from '../services/InventoryService';
 // import moment from 'moment'; 
-import DatePicker from 'react-date-picker';
-import 'react-date-picker/dist/DatePicker.css';
+// import 'react-date-picker/dist/DatePicker.css';
 
 // class AddExecutiveComponent extends React.Component {
 

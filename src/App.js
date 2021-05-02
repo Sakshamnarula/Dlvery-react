@@ -19,7 +19,7 @@ function App() {
   return (
     <div className="App">
       <Navigation />
-      <Router>
+      <Router >
         <Switch>
           <Route exact path='/inventory/all' component={InventoryComponent} ></Route>
           <Route exact path='/inventory/add' component={AddInventoryComponent}></Route>
