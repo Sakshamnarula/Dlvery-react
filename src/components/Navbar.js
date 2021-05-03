@@ -7,8 +7,8 @@ class Navigation extends React.Component{
     render(){
     return (
         <div >
-        <span className="bg-primary p-5"><img src={headerlogo} alt="blank"></img></span>
-        <Navbar bg="primary" className="p-2 pl-5" variant="dark">
+        <span className="bg-primary"><img className="" src={headerlogo} alt="blank"></img></span>
+        <Navbar bg="primary" className="" variant="dark">
             <Navbar.Brand href="/">DLvery</Navbar.Brand>
                 <Nav >
                     <Nav.Link href="/">Home</Nav.Link>

@@ -76,7 +76,7 @@ const AssignExecutive = () => {
 
   return (
     <div className="container-fluid">
-      <div className="m-5">
+      <div className="">
         <h2 className="text-float"> Assign Executives</h2>
         <div className="card col">
           <div className="card-body">
