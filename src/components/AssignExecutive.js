@@ -8,7 +8,7 @@ const AssignExecutive = () => {
   const [executives, setExecutive] = useState([]);
   const [selectedInventories, setSelectedInventories] = useState([]);
   const [selectedExecutive, setSelectedExecutive] = useState();
-  const [inventoriesVisibility, setInvVisibility] = useState(true)
+  const [inventoriesVisibility, setInvVisibility] = useState(false)
   const [viewType, setViewType] = useState(0)
   // const [value1, setNewVal] = useState("5")
   const fetchData = () => {
@@ -58,7 +58,7 @@ const AssignExecutive = () => {
   function onSelectChange(e) {
     setSelectedExecutive(e.target.value)
     setViewType(1)
-    setInvVisibility(false)
+    setInvVisibility(true)
   }
 
 
@@ -89,7 +89,9 @@ const AssignExecutive = () => {
                 {executives.map((executive) => <option key={executive.exId} value={executive.exId}>{executive.exName}</option>)}
               </select>
             </div>
-            <InventoryComponent hidden={inventoriesVisibility} type={viewType} onChecked={addSelected} onUnChecked={removeSelected} />
+            <div hidden={!inventoriesVisibility}>
+            <InventoryComponent selectVisibility={inventoriesVisibility} onChecked={addSelected} onUnChecked={removeSelected} />
+            </div>
           </div>
         </div>
       </div>
