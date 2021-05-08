@@ -2,10 +2,11 @@
 import './App.css';
 import InventoryComponent from './components/InventoryComponent';
 import "bootstrap/dist/css/bootstrap.css"
-import AddInventoryComponent from './components/AddInventoryComponent';
-import AddExecutiveComponent from './components/AddExecutive';
+import AddInventory from './components/AddInventory';
+import AddExecutive from './components/AddExecutive';
 import Navigation from './components/Navbar';
 import AssignExecutive from './components/AssignExecutive'
+import ExecutiveDeliveries from './components/ExecutiveDeliveries'
 // import DatePicker from 'react-date-picker/dist/DatePicker';
 // import "react-datepicker/dist/react-datepicker.css";
 // import "../node_modules/react-datepicker/src/stylesheets/datepicker.css";
@@ -22,9 +23,10 @@ function App() {
       <Router >
         <Switch>
           <Route exact path='/inventory/all' component={InventoryComponent} ></Route>
-          <Route exact path='/inventory/add' component={AddInventoryComponent}></Route>
-          <Route exact path='/executive/add' component={AddExecutiveComponent}></Route>
+          <Route exact path='/inventory/add' component={AddInventory}></Route>
+          <Route exact path='/executive/add' component={AddExecutive}></Route>
           <Route exact path='/assign/executive' component={AssignExecutive}></Route>
+          <Route exact path='/executive/deliveries' component={ExecutiveDeliveries}></Route>
         </Switch>
       </Router>
     </div>

@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from 'react';
-import InventoryService from '../services/InventoryService';
 
 import { makeStyles } from '@material-ui/core/styles';
 import Paper from '@material-ui/core/Paper';
@@ -48,7 +47,7 @@ function ListComponent(props) {
     const [page, setPage] = React.useState(0);
     const [rowsPerPage, setRowsPerPage] = React.useState(5);
     const [dispCheckbox, setDispCheckbox] = useState(false)
-
+    // const [tester,setTester] = useState()
     const handleChangePage = (event, newPage) => {
         setPage(newPage);
     };
@@ -67,7 +66,7 @@ function ListComponent(props) {
     }
 
     function displayCheckbox() {
-        if(props.selectVisibility){
+        if(props.entireProps.selectVisibility){
             setDispCheckbox(true)
             let filtered = props.inputList.filter(iv => iv.status === 'Added');
             setItemsToDisplay(filtered)
@@ -83,14 +82,19 @@ function ListComponent(props) {
 
     useEffect(() => {
         displayCheckbox()
-    }, [props.selectVisibility]);
+    }, [props.entireProps.selectVisibility]);
 
     function checkBoxModify(event) {
+        // console.log("checkBoxModify"+event.target.key)
+        // setTester(event)
+        // return;
         if (event.target.checked)
             props.entireProps.onChecked(event.target.value)
         else
             props.entireProps.onUnChecked(event.target.value)
     }
+
+    
 
 
     return (
@@ -113,7 +117,7 @@ function ListComponent(props) {
                         <TableBody>
                             {itemsToDisplay.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage).map((inv) => {
                                 return (
-                                    <TableRow hover role="checkbox" tabIndex={-1} key={inv.productId}>
+                                    <TableRow hover role="checkbox" tabIndex={-1} key={inv.productId} onClick={() => props.onClick(inv)}>
                                         {columns.map((column) => {
                                             if (column.id === 'selected') {
                                                 return (

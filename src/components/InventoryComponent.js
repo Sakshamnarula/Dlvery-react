@@ -34,7 +34,6 @@ export default InventoryComponent;
 //     },
 // });
 
-
 function InventoryComponent(props) {
     const [inventory, setInventories] = useState([]);
  
@@ -51,7 +50,7 @@ function InventoryComponent(props) {
     return (
         <div >
             <h1>Inventory</h1>
-            <ListComponent inputList={inventory} selectVisibility={props.selectVisibility} entireProps={props}></ListComponent>
+            <ListComponent inputList={inventory} entireProps={props}></ListComponent>
         </div>
     )
 }

@@ -9,7 +9,6 @@ const AssignExecutive = () => {
   const [selectedInventories, setSelectedInventories] = useState([]);
   const [selectedExecutive, setSelectedExecutive] = useState();
   const [inventoriesVisibility, setInvVisibility] = useState(false)
-  const [viewType, setViewType] = useState(0)
   // const [value1, setNewVal] = useState("5")
   const fetchData = () => {
     InventoryService.getAllExecutive().then((Response) => {
@@ -25,10 +24,7 @@ const AssignExecutive = () => {
   // }
 
   useEffect(() => {
-    fetchData()
-
-
-  }, [])
+    fetchData()}, [])
 
   function addSelected(selectedId) {
     //to be impl
@@ -57,7 +53,7 @@ const AssignExecutive = () => {
 
   function onSelectChange(e) {
     setSelectedExecutive(e.target.value)
-    setViewType(1)
+    // setViewType(1)
     setInvVisibility(true)
   }
 
@@ -85,7 +81,7 @@ const AssignExecutive = () => {
                 <button className="btn btn-success col-md" type="button">Select Executives</button>
               </div>
               <select className="custom-select col-md" value={selectedExecutive} onChange={onSelectChange}>
-                <option hidden={!inventoriesVisibility} key={0} value={0}>Please Select an Executive</option>
+                <option hidden={inventoriesVisibility} key={0} value={0}>Please Select an Executive</option>
                 {executives.map((executive) => <option key={executive.exId} value={executive.exId}>{executive.exName}</option>)}
               </select>
             </div>

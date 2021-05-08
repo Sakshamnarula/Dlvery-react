@@ -5,6 +5,7 @@ const inventory_add = 'http://localhost:8080/inventory/add';
 const executive_add = 'http://localhost:8080/executive/add';
 const executive_all = 'http://localhost:8080/executive/all';
 const executive_assign = 'http://localhost:8080/executive/assignExecutive';
+const executive_getMyInventory = 'http://localhost:8080/executive/getMyInventory'
 
 class InventoryService {
     getAllInventory() {
@@ -24,8 +25,17 @@ class InventoryService {
     }
 
     assignExecutive(selectedInventories) {
-        console.log("AXIOS AssignExe" + selectedInventories.length)
+        // console.log("AXIOS AssignExe" + selectedInventories.length)
         return axios.put(executive_assign,selectedInventories)
+    }
+
+    getMyInventory(executive_id){
+        console.log('Ivn Service - GetMyINv '  + executive_id)
+        return axios.get(executive_getMyInventory, {
+            params: {
+              execId: executive_id
+            }
+          })
     }
 }
 

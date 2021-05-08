@@ -1,12 +1,10 @@
 import React, { useState } from 'react';
 import InventoryService from '../services/InventoryService';
 // import moment from 'moment'; 
-import DatePicker from 'react-date-picker';
 import 'react-date-picker/dist/DatePicker.css';
 import { makeStyles } from '@material-ui/core/styles';
 import TextField from '@material-ui/core/TextField';
 import 'date-fns';
-import Grid from '@material-ui/core/Grid';
 import DateFnsUtils from '@date-io/date-fns';
 import {
     MuiPickersUtilsProvider,
@@ -25,7 +23,7 @@ const useStyles = makeStyles((theme) => ({
     },
 }));
 
-function AddInventoryComponent() {
+function AddInventory() {
 
     const classes = useStyles();
     const [item, setItem] = useState({
@@ -190,4 +188,4 @@ function AddInventoryComponent() {
 
 }
 
-export default AddInventoryComponent;
+export default AddInventory;
