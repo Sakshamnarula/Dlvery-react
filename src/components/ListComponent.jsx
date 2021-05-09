@@ -66,7 +66,7 @@ function ListComponent(props) {
     }
 
     function displayCheckbox() {
-        if(props.entireProps.selectVisibility){
+        if (props.entireProps.selectVisibility) {
             setDispCheckbox(true)
             let filtered = props.inputList.filter(iv => iv.status === 'Added');
             setItemsToDisplay(filtered)
@@ -94,7 +94,7 @@ function ListComponent(props) {
             props.entireProps.onUnChecked(event.target.value)
     }
 
-    
+
 
 
     return (
@@ -117,11 +117,11 @@ function ListComponent(props) {
                         <TableBody>
                             {itemsToDisplay.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage).map((inv) => {
                                 return (
-                                    
-                                    <TableRow hover role="checkbox" tabIndex={-1} key={inv.productId} onClick={()=>{
-                                       if(props.clicker){
-                                           props.onClick(inv)
-                                       }
+
+                                    <TableRow hover role="checkbox" tabIndex={-1} key={inv.productId} onClick={() => {
+                                        if (props.clicker) {
+                                            props.onClick(inv)
+                                        }
                                     }}>
                                         {columns.map((column) => {
                                             if (column.id === 'selected') {
@@ -150,7 +150,7 @@ function ListComponent(props) {
                                             }
                                         })}
                                     </TableRow>
-                                    
+
                                 );
                             })}
                         </TableBody>

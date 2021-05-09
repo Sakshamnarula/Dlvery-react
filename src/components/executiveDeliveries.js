@@ -24,16 +24,16 @@ const useStyles = makeStyles((theme) => ({
         display: 'flex',
         alignItems: 'center',
         justifyContent: 'center',
-        width:'relative'
+        width: 'relative'
     },
     paper: {
-        padding: theme.spacing(4,4,4,4),
+        padding: theme.spacing(4, 4, 4, 4),
         width: 'relative'
     },
     root: {
         '& > *': {
             margin: theme.spacing(2),
-             width: 'relative',
+            width: 'relative',
         },
     },
 }));
@@ -60,11 +60,11 @@ function ExecutiveDeliveries(props) {
         }
     });
 
-    function handleOpen (){
+    function handleOpen() {
         setOpenInvDetail(true);
     };
 
-    function handleClose(){
+    function handleClose() {
         setOpenInvDetail(false);
     };
 
@@ -73,12 +73,12 @@ function ExecutiveDeliveries(props) {
 
 
     function fetchData() {
-        let toBeFilter=[]
+        let toBeFilter = []
         // console.log("fetchData Then loaded  >> " + inventory.length)
         InventoryService.getMyInventory(7).then((Response) => {
             console.log("GetMyInventory" + Response.data.length)
 
-            toBeFilter=Response.data
+            toBeFilter = Response.data
             let filtered = toBeFilter.filter(inv => inv.status === 'Assigned')
             //console.log(filtered)
             setInventory(filtered)
@@ -93,30 +93,27 @@ function ExecutiveDeliveries(props) {
         setSelectedInv(inv)
         handleOpen()
     }
-    function filterInv()
-    {
-        
+    function filterInv() {
+
         let filtered = inventory.filter(inv => inv.status === 'Assigned')
         //console.log(filtered)
         setInventory(filtered)
     }
-   function deliverItem(data)
-   {
-     data.status='Delivered'
-     InventoryService.addInventory(data)
-     filterInv()
-   }
-   function notDeliverItem(data)
-   {
-     data.status='Attempted'
-     data.executive.exName="To Be Assigned"
-     data.executive.exId= ""
-     data.executive.exContact= ""
-     data.checkOutDate= ""
-     InventoryService.addInventory(data)
-     filterInv()
+    function deliverItem(data) {
+        data.status = 'Delivered'
+        InventoryService.addInventory(data)
+        filterInv()
+    }
+    function notDeliverItem(data) {
+        data.status = 'Attempted'
+        data.executive.exName = "To Be Assigned"
+        data.executive.exId = ""
+        data.executive.exContact = ""
+        data.checkOutDate = ""
+        InventoryService.addInventory(data)
+        filterInv()
 
-   }
+    }
 
     useEffect(() => {
         fetchData();
@@ -126,62 +123,29 @@ function ExecutiveDeliveries(props) {
         <div >
             <h1>Inventory to Be Delivered by "Executive_Name"</h1>
             <ListComponent inputList={inventory} entireProps={[]} onClick={inventoryClick} clicker={true}></ListComponent>
-            
+
             <Dialog
                 className={classes.modal}
                 open={openInvDetail}
                 onClose={handleClose}
                 closeAfterTransition
-                >
-                    <Paper elevation={4} className={classes.paper} variant="outlined">
-                    <form  noValidate className={classes.root} autoComplete="off">
-                    <TextField id="standard-basic" label="Product Id" value={selectedInv.productId} readOnly={true}  />
-                            <TextField id="standard-basic" label="Product Name" value={selectedInv.productName} readOnly={true}  />
-                            <TextField id="standard-basic" label="Product Priority" value={selectedInv.priority} readOnly={true} />
-                            <TextField id="standard-basic" label="Product Category" value={selectedInv.productCategory} readOnly={true}  />
-                            <TextField id="standard-basic" label="Checkin Date" value={new Date(selectedInv.checkInDate).toLocaleDateString()} readOnly={true}  />
-                            <TextField id="standard-basic" label="Checkout Date" value={ new Date(selectedInv.checkOutDate).toLocaleDateString()} readOnly={true}  />
-                            {/* <MuiPickersUtilsProvider utils={DateFnsUtils}>
-                                <KeyboardDatePicker
-                                    disableToolbar
-                                    variant="inline"
-                                    format="dd/MM/yyyy"
-                                    margin="normal"
-                                    id="date-picker-inline"
-                                    label="Check In Date"
-                                    value={selectedInv.checkInDate}
-                                    selected={selectedInv.checkInDate}
-                                    readOnly={true}
-                                    KeyboardButtonProps={{
-                                        'aria-label': 'change date',
-                                    }}
-                                />
-                            </MuiPickersUtilsProvider>
-                            <MuiPickersUtilsProvider utils={DateFnsUtils}>
-                                <KeyboardDatePicker
-                                    disableToolbar
-                                    variant="inline"
-                                    format="dd/MM/yyyy"
-                                    margin="normal"
-                                    id="date-picker-inline"
-                                    label="Check Out Date"
-                                    value={selectedInv.checkOutDate}
-                                    selected={selectedInv.checkOutDate}
-                                    readOnly={true}
-                                    // KeyboardButtonProps={{
-                                    //     'aria-label': 'change date',
-                                    // }}
-                                />
-                            </MuiPickersUtilsProvider> */}
-                            <TextField id="standard-basic" label="Customer Address" value={selectedInv.customerAddress} readOnly={true} />
-                            <TextField id="standard-basic" label="Customer Number" value={selectedInv.contactNumber} readOnly={true} />
-</form>
-                       
-                        <Button variant="contained" onClick={()=>{deliverItem(selectedInv)}}  color="primary">Delivered</Button>
-                        <Button variant="contained" onClick={()=>{notDeliverItem(selectedInv)}}  color="primary">Un-Delivered</Button>
+            >
+                <Paper elevation={4} className={classes.paper} variant="outlined">
+                    <form noValidate className={classes.root} autoComplete="off">
+                        <TextField id="standard-basic" label="Product Id" value={selectedInv.productId} readOnly={true} />
+                        <TextField id="standard-basic" label="Product Name" value={selectedInv.productName} readOnly={true} />
+                        <TextField id="standard-basic" label="Product Priority" value={selectedInv.priority} readOnly={true} />
+                        <TextField id="standard-basic" label="Product Category" value={selectedInv.productCategory} readOnly={true} />
+                        <TextField id="standard-basic" label="Checkin Date" value={new Date(selectedInv.checkInDate).toLocaleDateString()} readOnly={true} />
+                        <TextField id="standard-basic" label="Checkout Date" value={new Date(selectedInv.checkOutDate).toLocaleDateString()} readOnly={true} />
+                        <TextField id="standard-basic" label="Customer Address" value={selectedInv.customerAddress} readOnly={true} />
+                        <TextField id="standard-basic" label="Customer Number" value={selectedInv.contactNumber} readOnly={true} />
+                    </form>
+                    <Button variant="contained" onClick={() => { deliverItem(selectedInv) }} color="primary">Delivered</Button>
+                    <Button variant="contained" onClick={() => { notDeliverItem(selectedInv) }} color="primary">Un-Delivered</Button>
 
 
-                    </Paper> 
+                </Paper>
             </Dialog>
         </div>
     )

@@ -7,12 +7,6 @@ import AddExecutive from './components/AddExecutive';
 import Navigation from './components/Navbar';
 import AssignExecutive from './components/AssignExecutive'
 import ExecutiveDeliveries from './components/executiveDeliveries'
-// import DatePicker from 'react-date-picker/dist/DatePicker';
-// import "react-datepicker/dist/react-datepicker.css";
-// import "../node_modules/react-datepicker/src/stylesheets/datepicker.css";
-// import '../node_modules/bootstrap/dist/css/bootstrap.min.css';
-
-
 import { Route, Switch, BrowserRouter as Router } from 'react-router-dom'
 
 function App() {
@@ -20,13 +14,13 @@ function App() {
   return (
     <div className="App">
       <Navigation />
-      <Router >
+      <Router>
         <Switch>
-          <Route exact path='/inventory/all' component={InventoryComponent} ></Route>
-          <Route exact path='/inventory/add' component={AddInventory}></Route>
-          <Route exact path='/executive/add' component={AddExecutive}></Route>
-          <Route exact path='/assign/executive' component={AssignExecutive}></Route>
-           <Route exact path='/executive/deliveries' component={ExecutiveDeliveries}></Route> 
+          <Route path='/inventory/all' component={InventoryComponent} ></Route>
+          <Route path='/inventory/add' component={AddInventory}></Route>
+          <Route path='/executive/add' component={AddExecutive}></Route>
+          <Route path='/assign/executive' component={AssignExecutive}></Route>
+          <Route path='/executive/deliveries' component={ExecutiveDeliveries}></Route>
         </Switch>
       </Router>
     </div>

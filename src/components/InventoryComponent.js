@@ -36,7 +36,7 @@ export default InventoryComponent;
 
 function InventoryComponent(props) {
     const [inventory, setInventories] = useState([]);
- 
+
     function fetchData() {
         InventoryService.getAllInventory().then((Response) => {
             setInventories(Response.data)
