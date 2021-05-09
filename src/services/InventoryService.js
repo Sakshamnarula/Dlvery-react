@@ -1,3 +1,4 @@
+import { ContactSupportOutlined } from '@material-ui/icons';
 import axios from 'axios';
 
 const inventory_all = 'http://localhost:8080/inventory/all';
@@ -6,12 +7,14 @@ const executive_add = 'http://localhost:8080/executive/add';
 const executive_all = 'http://localhost:8080/executive/all';
 const executive_assign = 'http://localhost:8080/executive/assignExecutive';
 const executive_getMyInventory = 'http://localhost:8080/executive/getMyInventory'
+const inventory_batchAdd='http://localhost:8080/inventory/batchAdd'
 
 class InventoryService {
     getAllInventory() {
         return axios.get(inventory_all)
     }
     addInventory(inventory) {
+        //ContactSupportOutlined.lof
         return axios.post(inventory_add, inventory)
     }
     addExecutive(executive) {
@@ -36,6 +39,12 @@ class InventoryService {
               execId: executive_id
             }
           })
+    }
+
+    addBatchInventories(inventories)
+    {
+        return axios.post(inventory_batchAdd, inventories)
+
     }
 }
 

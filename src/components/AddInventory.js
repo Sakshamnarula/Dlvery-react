@@ -11,6 +11,7 @@ import {
     KeyboardDatePicker,
 } from '@material-ui/pickers';
 import Button from '@material-ui/core/Button';
+import AddInventoryFile from './AddInventoryFile'
 
 
 
@@ -121,6 +122,7 @@ function AddInventory() {
     return (
         <div>
             <div className="container">
+                <AddInventoryFile></AddInventoryFile>
                 <h3 className="text-center"> Add Inventory</h3>
                     <form className={classes.root} noValidate autoComplete="off">
 

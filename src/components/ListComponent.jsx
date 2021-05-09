@@ -117,7 +117,12 @@ function ListComponent(props) {
                         <TableBody>
                             {itemsToDisplay.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage).map((inv) => {
                                 return (
-                                    <TableRow hover role="checkbox" tabIndex={-1} key={inv.productId} onClick={() => props.onClick(inv)}>
+                                    
+                                    <TableRow hover role="checkbox" tabIndex={-1} key={inv.productId} onClick={()=>{
+                                       if(props.clicker){
+                                           props.onClick(inv)
+                                       }
+                                    }}>
                                         {columns.map((column) => {
                                             if (column.id === 'selected') {
                                                 return (
@@ -145,6 +150,7 @@ function ListComponent(props) {
                                             }
                                         })}
                                     </TableRow>
+                                    
                                 );
                             })}
                         </TableBody>
