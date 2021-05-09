@@ -13,8 +13,8 @@ function App() {
 
   return (
     <div className="App">
-      <Navigation />
       <Router>
+      <Navigation />
         <Switch>
           <Route path='/inventory/all' component={InventoryComponent} ></Route>
           <Route path='/inventory/add' component={AddInventory}></Route>

@@ -10,6 +10,8 @@ import TableHead from '@material-ui/core/TableHead';
 import TablePagination from '@material-ui/core/TablePagination';
 import TableRow from '@material-ui/core/TableRow';
 import Checkbox from '@material-ui/core/Checkbox';
+import Skeleton from '@material-ui/lab/Skeleton';
+
 
 
 function parseDate(dt) {
@@ -38,6 +40,9 @@ const useStyles = makeStyles({
     container: {
         maxHeight: 500
     },
+    skele: {
+        width: '100%'
+    },
 });
 
 function ListComponent(props) {
@@ -47,7 +52,7 @@ function ListComponent(props) {
     const [page, setPage] = React.useState(0);
     const [rowsPerPage, setRowsPerPage] = React.useState(5);
     const [dispCheckbox, setDispCheckbox] = useState(false)
-    // const [tester,setTester] = useState()
+    const [skeletonVisi, setSkeletonVisi] = useState(true);
     const handleChangePage = (event, newPage) => {
         setPage(newPage);
     };
@@ -63,6 +68,7 @@ function ListComponent(props) {
             setItemsToDisplay(x)
             console.log(">>> " + props.inputList)
         }
+
     }
 
     function displayCheckbox() {
@@ -78,6 +84,11 @@ function ListComponent(props) {
     useEffect(() => {
         // console.log("props. lkrke object" + entireProps.onCheck)
         prepareList();
+        // setSkeletonVisi(false)
+        if (props.inputList.length !== 0) {
+            // console.log('itemsToDisplay Length' + props.inputList.length)
+            setSkeletonVisi(false)
+        }
     }, [props.inputList]);
 
     useEffect(() => {
@@ -100,6 +111,7 @@ function ListComponent(props) {
     return (
         <div className="m-5">
             <Paper className={classes.root}>
+
                 <TableContainer className={classes.container}>
                     <Table stickyHeader aria-label="sticky table">
                         <TableHead>
@@ -114,15 +126,21 @@ function ListComponent(props) {
                                 })}
                             </TableRow>
                         </TableHead>
-                        <TableBody>
+                           {columns.map((column) => {
+                                return (<TableCell hidden={!skeletonVisi}>
+                                    <Skeleton className={classes.skele} />
+                                </TableCell>)
+                            })}
+
+
+                        <TableBody hidden={skeletonVisi}>
                             {itemsToDisplay.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage).map((inv) => {
                                 return (
-
                                     <TableRow hover role="checkbox" tabIndex={-1} key={inv.productId} onClick={() => {
                                         if (props.clicker) {
                                             props.onClick(inv)
                                         }
-                                    }}>
+                                        }}>
                                         {columns.map((column) => {
                                             if (column.id === 'selected') {
                                                 return (
@@ -166,8 +184,7 @@ function ListComponent(props) {
                     onChangeRowsPerPage={handleChangeRowsPerPage}
                 />
             </Paper>
-
-        </div>
+        </div >
     )
 
 
