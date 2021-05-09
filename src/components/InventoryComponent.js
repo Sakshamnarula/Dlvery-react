@@ -1,41 +1,26 @@
 import React, { useState, useEffect } from 'react';
 import InventoryService from '../services/InventoryService';
+import Paper from '@material-ui/core/Paper';
+import { makeStyles } from '@material-ui/core/styles';
 
 import ListComponent from './ListComponent'
 
 
 export default InventoryComponent;
 
-// function parseDate(dt) {
-//     if (dt == null)
-//         return "Pending"
-//     return new Date(dt).toLocaleDateString()
-// }
-
-// let columns = [
-
-//     { id: 'productId', label: 'Product Id', minWidth: 170 },
-//     { id: 'productName', label: 'Product Name', minWidth: 100 },
-//     { id: 'priority', label: 'Priority', minWidth: 100 },
-//     { id: 'productCategory', label: 'Product Category', minWidth: 100 },
-//     { id: 'checkInDate', label: 'Check In Date', minWidth: 100, format: (val) => parseDate(val) },
-//     { id: 'checkOutDate', label: 'Check Out Date', minWidth: 100, format: (val) => parseDate(val) },
-//     { id: 'customerAddress', label: 'Customer Address', minWidth: 100 },
-//     { id: 'status', label: 'Status', minWidth: 100 },
-//     { id: 'exName', label: 'Executive', minWidth: 100, format: (val) => val },
-// ];
-
-// const useStyles = makeStyles({
-//     root: {
-//         width: '100%'
-//     },
-//     container: {
-//         maxHeight: 500
-//     },
-// });
+const useStyles = makeStyles((theme) => ({
+    root: {
+        '& > *': {
+            margin: theme.spacing(2),
+            width: '80ch',
+        },
+    },
+}));
 
 function InventoryComponent(props) {
     const [inventory, setInventories] = useState([]);
+    const classes = useStyles();
+
 
     function fetchData() {
         InventoryService.getAllInventory().then((Response) => {
@@ -49,8 +34,11 @@ function InventoryComponent(props) {
 
     return (
         <div >
-            <h1>Inventory</h1>
-            <ListComponent inputList={inventory} entireProps={props}></ListComponent>
+            <Paper elevation={4} className={classes.paper} variant="outlined">
+
+                <h1 hidden={props.selectVisibility}>Inventory</h1>
+                <ListComponent inputList={inventory} selectVisibility={props.selectVisibility} onChecked={props.onChecked} onUnChecked={props.onUnChecked} ></ListComponent>
+            </Paper>
         </div>
     )
 }

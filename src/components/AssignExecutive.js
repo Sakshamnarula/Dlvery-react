@@ -3,12 +3,64 @@
 import InventoryService from '../services/InventoryService';
 import React, { useState, useEffect } from 'react';
 import InventoryComponent from './InventoryComponent'
+import { makeStyles } from '@material-ui/core/styles';
+import InputLabel from '@material-ui/core/InputLabel';
+import MenuItem from '@material-ui/core/MenuItem';
+import FormHelperText from '@material-ui/core/FormHelperText';
+import FormControl from '@material-ui/core/FormControl';
+import Select from '@material-ui/core/Select';
+import Paper from '@material-ui/core/Paper';
+import Button from '@material-ui/core/Button';
+
+
+
+
+const useStyles = makeStyles((theme) => ({
+  formControl: {
+    margin: theme.spacing(3),
+    minWidth: 220,
+  },
+  selectEmpty: {
+    marginTop: theme.spacing(2),
+  },
+  submitButton: {
+    margin: theme.spacing(3),
+  }
+}));
+
 
 const AssignExecutive = () => {
-  const [executives, setExecutive] = useState([]);
-  const [selectedInventories, setSelectedInventories] = useState([]);
-  const [selectedExecutive, setSelectedExecutive] = useState();
+
+  const classes = useStyles();
+
+  const [executives, setExecutive] = useState([{
+    exName: "",
+    exId: "",
+    exContact: ""
+  }]);
+  const [selectedInventories, setSelectedInventories] = useState([{
+    productId: "",
+    productName: "",
+    priority: "",
+    checkInDate: "",
+    productCategory: "",
+    customerAddress: "",
+    contactNumber: "",
+    checkOutDate: "",
+    status: "",
+    executive: {
+      exName: "",
+      exId: "",
+      exContact: ""
+    }
+  }]);
+  const [selectedExecutive, setSelectedExecutive] = useState({
+    exName: "",
+    exId: "",
+    exContact: ""
+  });
   const [inventoriesVisibility, setInvVisibility] = useState(false)
+  const [submitButtonVisi, setSubmitButtonVisi] = useState(false)
   // const [value1, setNewVal] = useState("5")
   const fetchData = () => {
     InventoryService.getAllExecutive().then((Response) => {
@@ -24,12 +76,13 @@ const AssignExecutive = () => {
   // }
 
   useEffect(() => {
-    fetchData()}, [])
+    fetchData()
+  }, [])
 
   function addSelected(selectedId) {
     //to be impl
     // console.log("addSelected" + selectedId)
-
+    setSubmitButtonVisi(true)
 
     let obj = {
       productId: selectedId,
@@ -64,34 +117,37 @@ const AssignExecutive = () => {
   function removeSelected(removeId) {
     console.log("removeSelected " + removeId)
     let filtered = selectedInventories.filter(inv => inv.productId !== removeId)
-    // console.log("Filter Length"+filtered.length)
     setSelectedInventories(filtered)
-    // setInventories()
-    // console.log(selectedInventories)
+    // console.log('selected length' + selectedInventories.length)
+    if (filtered.length === 1)
+      setSubmitButtonVisi(false)
   }
 
   return (
     <div className="container-fluid">
-      <div className="">
-        <h2 className="text-float"> Assign Executives</h2>
-        <div className="card col">
-          <div className="card-body">
-            <div className="input-group">
-              <div className="input-group-prepend">
-                <button className="btn btn-success col-md" type="button">Select Executives</button>
-              </div>
-              <select className="custom-select col-md" value={selectedExecutive} onChange={onSelectChange}>
-                <option hidden={inventoriesVisibility} key={0} value={0}>Please Select an Executive</option>
-                {executives.map((executive) => <option key={executive.exId} value={executive.exId}>{executive.exName}</option>)}
-              </select>
-            </div>
-            <div hidden={!inventoriesVisibility}>
-            <InventoryComponent selectVisibility={inventoriesVisibility} onChecked={addSelected} onUnChecked={removeSelected} />
-            </div>
-          </div>
+      <h2 className="text-float"> Assign Executives</h2>
+      <Paper elevation={4} className={classes.paper} variant="outlined">
+
+        <FormControl className={classes.formControl}>
+          <InputLabel variant="outlined" id="executive-list">Executives</InputLabel>
+          <Select
+            labelId="executive-list-label"
+            id="executive-select"
+            value={selectedExecutive} onChange={onSelectChange}
+          >
+            <MenuItem hidden={inventoriesVisibility} key={0} value={0}>
+              <em>Please Select an Executive</em>
+            </MenuItem>
+            {executives.map((executive) => <MenuItem key={executive.exId} value={executive.exId}>{executive.exName}</MenuItem>)}
+          </Select>
+          <FormHelperText>Select an Executive to Assign Deliveries To...</FormHelperText>
+        </FormControl>
+        <Button className={classes.submitButton} variant="contained" hidden={!submitButtonVisi} onClick={() => InventoryService.assignExecutive(selectedInventories)} color='secondary'>Assign</Button>
+
+        <div hidden={!inventoriesVisibility}>
+          <InventoryComponent selectVisibility={inventoriesVisibility} onChecked={addSelected} onUnChecked={removeSelected} />
         </div>
-      </div>
-      <button className="btn btn-success col-md" onClick={() => InventoryService.assignExecutive(selectedInventories)}>Submit</button>
+      </Paper>
     </div>
   )
 

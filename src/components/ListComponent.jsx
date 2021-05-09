@@ -20,8 +20,7 @@ function parseDate(dt) {
     return new Date(dt).toLocaleDateString()
 }
 
-let columns = [
-
+let columns_list = [
     { id: 'productId', label: 'Product Id', minWidth: 170 },
     { id: 'productName', label: 'Product Name', minWidth: 100 },
     { id: 'priority', label: 'Priority', minWidth: 100 },
@@ -48,6 +47,7 @@ const useStyles = makeStyles({
 function ListComponent(props) {
 
     const classes = useStyles();
+    const [columns, setColumns] = useState(columns_list)
     const [itemsToDisplay, setItemsToDisplay] = useState([]);
     const [page, setPage] = React.useState(0);
     const [rowsPerPage, setRowsPerPage] = React.useState(5);
@@ -66,43 +66,37 @@ function ListComponent(props) {
         if (!dispCheckbox) {
             let x = props.inputList
             setItemsToDisplay(x)
-            console.log(">>> " + props.inputList)
+            // console.log(">>> " + props.inputList)
         }
 
     }
 
     function displayCheckbox() {
-        if (props.entireProps.selectVisibility) {
+        if (props.selectVisibility) {
             setDispCheckbox(true)
             let filtered = props.inputList.filter(iv => iv.status === 'Added');
             setItemsToDisplay(filtered)
-            columns.unshift({ id: 'selected', label: 'Selected', minWidth: 170 })
-            console.log(itemsToDisplay.length + " >>>>> " + props.inputList.length + " >> ")
+            setColumns((prev) => [{ id: 'selected', label: 'Selected', minWidth: 170 }, ...prev])
+            // console.log(" Lengths "+itemsToDisplay.length + " >>>>> " + props.inputList.length + " >> ")
         }
     }
 
     useEffect(() => {
-        // console.log("props. lkrke object" + entireProps.onCheck)
         prepareList();
-        // setSkeletonVisi(false)
         if (props.inputList.length !== 0) {
-            // console.log('itemsToDisplay Length' + props.inputList.length)
             setSkeletonVisi(false)
         }
     }, [props.inputList]);
 
     useEffect(() => {
         displayCheckbox()
-    }, [props.entireProps.selectVisibility]);
+    }, [props.selectVisibility]);
 
     function checkBoxModify(event) {
-        // console.log("checkBoxModify"+event.target.key)
-        // setTester(event)
-        // return;
         if (event.target.checked)
-            props.entireProps.onChecked(event.target.value)
+            props.onChecked(event.target.value)
         else
-            props.entireProps.onUnChecked(event.target.value)
+            props.onUnChecked(event.target.value)
     }
 
 
@@ -125,12 +119,15 @@ function ListComponent(props) {
                                     </TableCell>)
                                 })}
                             </TableRow>
-                        </TableHead>
-                           {columns.map((column) => {
-                                return (<TableCell hidden={!skeletonVisi}>
+                            <TableRow>
+                            {columns.map((column) => {
+                                return (<TableCell key={column.id} hidden={!skeletonVisi}>
                                     <Skeleton className={classes.skele} />
                                 </TableCell>)
                             })}
+                            </TableRow>
+                        </TableHead>
+
 
 
                         <TableBody hidden={skeletonVisi}>
@@ -140,7 +137,7 @@ function ListComponent(props) {
                                         if (props.clicker) {
                                             props.onClick(inv)
                                         }
-                                        }}>
+                                    }}>
                                         {columns.map((column) => {
                                             if (column.id === 'selected') {
                                                 return (
