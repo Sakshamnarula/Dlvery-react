@@ -4,6 +4,7 @@ import { makeStyles } from '@material-ui/core/styles';
 import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
 import Paper from '@material-ui/core/Paper';
+import Formik, { useFormik } from 'formik';
 
 
 const useStyles = makeStyles((theme) => ({
@@ -32,7 +33,10 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 
-function AddExecutive() {
+
+const AddExecutive = () =>  {
+
+    // const [formik, setTest] = useState()
 
     const classes = useStyles();
     const [executive, setExecutive] = useState({
@@ -98,45 +102,85 @@ function AddExecutive() {
         fetchExecutiveCount()
     }, [])
 
+    const validate = values => {
+        const errors = {};
+        if (!values.exName) {
+            errors.exName = 'Required';
+        } else if (values.exName.length > 15) {
+            errors.exName = 'Must be 15 characters or less';
+        }
+
+        if (!values.exContact) {
+            errors.exContact = 'Required';
+        }
+        else if (values.exContact.length > 10) {
+            errors.exContact = 'Must be 10 characters or less';
+        }
+        // console.log(errors)
+        // setTest(formik.touched)
+        return errors;
+    };
+
+    const formik = useFormik({
+        initialValues: {
+            exId: '101',
+            exName: '',
+            exContact: '',
+            // email: '',
+        },
+        validate,
+        onSubmit: values => {
+            console.log(values + ' <<< VAlues')
+        },
+    })
 
     return (
         <div className={classes.root}>
             <Paper elevation={4} className={classes.paper} variant="outlined">
                 <h3 className="text-center"> Add Inventory</h3>
-                <form className={classes.form} noValidate autoComplete="off">
+                {/* <form className={classes.form} autoComplete="off" >
                     <TextField id="standard-basic" label="Executive Id" value={executive.exId} disabled />
                     <TextField id="standard-basic" label="Executive Name" value={executive.exName} onChange={changeExNameHandler} />
                     <TextField id="standard-basic" label="Executive Contact" value={executive.exContact} onChange={changeExContactHandler} />
-                    <Button variant="contained" onClick={addExecutive}>Add Executive</Button>
+                    <Button variant="contained" onClick={addExecutive} >Add Executive</Button>
+                </form> */}
+
+                <form className={classes.form} onSubmit={formik.handleSubmit}>
+                    <TextField id="exId"
+                        name="exId"
+                        type="number"
+                        onChange={formik.handleChange}
+                        value={formik.values.exId} label="Executive Id" disabled />
+
+                    <TextField id="exName"
+                        name="exName"
+                        type="text"
+                        onChange={formik.handleChange}
+                        value={formik.values.exName} label="Executive Name" error={formik.touched.exName && Boolean(formik.errors.exName)} helperText={formik.touched.exName && formik.errors.exName} />
+                    <TextField id="exContact"
+                        name="exContact"
+                        type="text"
+                        onChange={formik.handleChange}
+                        value={formik.values.exContact} label="Executive Contact" error={formik.touched.exContact && Boolean(formik.errors.exContact)} helperText={formik.touched.exContact && formik.errors.exContact} />
+                    <Button variant="contained" type="submit">Add Executive</Button>
+                    {console.log("touched >> " + formik.touched.exContact )} 
                 </form>
-                {/* <div className="col">
-                        <div className="card-col-md">
-                            <h3 className="text-center"> Add Executive</h3>
-                            <div className="card-body">
-                                <form>
-                                    <div className="col-md">
-                                        <div className="form-group row">
-                                            Executive Id
-                                            <input placeholder="Executive Id" name="exId" className="form-control" value={executive.exId} readOnly={true}></input>
-                                        </div>
-                                        <div className="form-group row">
-                                            <label>
-                                                Executive Name
-                                            </label>
-                                            <input placeholder="Executive Name" name="exName" className="form-control" value={executive.exName} onChange={changeExNameHandler}></input>
-                                        </div>
-                                        <div className="form-group row">
-                                            <label>
-                                                Executive Contact
-                                            </label>
-                                            <input placeholder="Executive Contact" name="exContact" className="form-control" value={executive.exContact} onChange={changeExContactHandler}></input>
-                                        </div>
-                                    </div>
-                                    <button className="btn btn-success" onClick={addExecutive}>Add Executive</button>
-                                </form>
-                            </div>
-                        </div>
-                    </div> */}
+                {/* error={formik.touched.exContact && Boolean(formik.errors.exContact)} helperText={formik.touched.exContact && formik.errors.exContact} */}
+                {/* <form onSubmit={formik.handleSubmit}>
+                    <label htmlFor="email">Email Address</label>
+                    <TextField
+                        id="email"
+                        name="email"
+                        type="email"
+                        onChange={formik.handleChange}
+                        value={formik.values.email}
+                    />
+                    <button type="submit">Submit</button>
+                    {console.log("touch" + formik.touched.email) }
+                </form> */}
+
+
+
             </Paper>
         </div>
     )
