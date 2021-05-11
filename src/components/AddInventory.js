@@ -19,8 +19,6 @@ import AccordionSummary from '@material-ui/core/AccordionSummary';
 import AccordionDetails from '@material-ui/core/AccordionDetails';
 
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
-import subMonths from 'date-fns/esm/subMonths/index';
-import { TramOutlined } from '@material-ui/icons';
 
 
 
@@ -47,10 +45,6 @@ const useStyles = makeStyles((theme) => ({
         width: '100%',
         alignItems: 'center',
         justifyContent: 'center'
-    },
-    heading: {
-        fontSize: theme.typography.pxToRem(15),
-        fontWeight: theme.typography.fontWeightRegular,
     },
     form: {
         // display: 'grid',

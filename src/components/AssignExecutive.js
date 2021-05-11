@@ -14,7 +14,6 @@ import Button from '@material-ui/core/Button';
 
 
 
-
 const useStyles = makeStyles((theme) => ({
   formControl: {
     margin: theme.spacing(3),
@@ -121,7 +120,15 @@ const AssignExecutive = () => {
     // console.log('selected length' + selectedInventories.length)
     if (filtered.length === 1)
       setSubmitButtonVisi(false)
+
   }
+
+
+
+  // Pass the useFormik() hook initial form values and a submit function that will
+  // be called when the form is submitted
+  
+
 
   return (
     <div className="container-fluid">
@@ -147,7 +154,11 @@ const AssignExecutive = () => {
         <div hidden={!inventoriesVisibility}>
           <InventoryComponent selectVisibility={inventoriesVisibility} onChecked={addSelected} onUnChecked={removeSelected} />
         </div>
+        
       </Paper>
+
+
+
     </div>
   )
 
