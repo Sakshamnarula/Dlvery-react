@@ -88,7 +88,7 @@ const AddExecutive = () => {
         InventoryService.getAllExecutive().then((Response) => {
             let idToSet = Response.data.length + 1
             console.log("FetchExecutiveCount" + idToSet);
-            formik.setFieldValue('exId',idToSet);
+            formik.setFieldValue('exId', idToSet);
             // setExecutive((prevState) => {
             //     return ({
             //         ...prevState,
@@ -105,19 +105,27 @@ const AddExecutive = () => {
 
     const validate = values => {
         const errors = {};
+        console.log('Values || ' + values.exName + " >>> " + values.exContact)
         if (!values.exName) {
             errors.exName = 'Required';
-        } else if (values.exName.length > 15) {
+        } 
+        else if (!/^[a-zA-Z]*$/i.test(values.exName)) {
+            errors.exName = 'no numeric values please :)';
+        }
+        else if (values.exName.length > 15) {
             errors.exName = 'Must be 15 characters or less';
         }
 
         if (!values.exContact) {
             errors.exContact = 'Required';
         }
-        else if (values.exContact.length > 10) {
-            errors.exContact = 'Must be 10 characters or less';
+        else if (!/^[0-9]*$/i.test(values.exContact)) {
+            errors.exContact = 'numbers only please :)';
         }
-        console.log(errors)
+        else if (values.exContact.length > 10 || values.exContact.length < 10) {
+            errors.exContact = 'mobile numbers are 10 digits buddhu :) ';
+        }
+        // console.log(errors)
         return errors;
     };
 
@@ -126,7 +134,7 @@ const AddExecutive = () => {
             exId: '',
             exName: '',
             exContact: ''
-            },
+        },
         validate,
         onSubmit: values => {
             console.log(values + ' <<< YEH VALUE AARI HAI KYA')
@@ -144,7 +152,7 @@ const AddExecutive = () => {
                     <TextField id="standard-basic" label="Executive Contact" value={executive.exContact} onChange={changeExContactHandler} />
                     <Button variant="contained" onClick={addExecutive} >Add Executive</Button>
                 </form> */}
-                <form className={classes.form} onSubmit={formik.handleSubmit}>
+                <form className={classes.form} autoComplete='off' onSubmit={formik.handleSubmit}>
                     <TextField id="exId"
                         name="exId"
                         type="number"
@@ -153,17 +161,17 @@ const AddExecutive = () => {
                     <TextField id="exName"
                         name="exName"
                         type="text"
-                        onKeyPress={() => {if(!formik.touched.exName){ console.log('ONE TIME PLIS'); formik.setFieldTouched('exName', true)} }}
+                        onKeyPress={() => { if (!formik.touched.exName) { console.log('ONE TIME PLIS'); formik.setFieldTouched('exName', true) } }}
                         onChange={(e) => { formik.handleChange(e); }}
                         value={formik.values.exName} label="Executive Name" error={formik.touched.exName && Boolean(formik.errors.exName)} helperText={formik.touched.exName && formik.errors.exName} />
                     <TextField id="exContact"
                         name="exContact"
                         type="text"
-                        onKeyPress={() => {if(!formik.touched.exContact){ console.log('ONE TIME PLIS'); formik.setFieldTouched('exContact', true)} }}
+                        onKeyPress={() => { if (!formik.touched.exContact) { console.log('ONE TIME PLIS'); formik.setFieldTouched('exContact', true) } }}
                         onChange={(e) => { formik.handleChange(e); }}
                         value={formik.values.exContact} label="Executive Contact" error={formik.touched.exContact && Boolean(formik.errors.exContact)} helperText={formik.touched.exContact && formik.errors.exContact} />
-                    <Button variant="contained"  type="submit">Add Executive</Button>
-                    {console.log("touched >> " + Boolean(formik.errors.length) + " >> " + !Boolean(formik.errors.length))}
+                    <Button variant="contained" type="submit">Add Executive</Button>
+                    {/* {console.log("touched >> " + Boolean(formik.errors.length) + " >> " + !Boolean(formik.errors.length))} */}
                 </form>
 
                 {/* error={formik.touched.exContact && Boolean(formik.errors.exContact)} helperText={formik.touched.exContact && formik.errors.exContact} */}
