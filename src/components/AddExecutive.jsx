@@ -4,7 +4,7 @@ import { makeStyles } from '@material-ui/core/styles';
 import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
 import Paper from '@material-ui/core/Paper';
-import Formik, { useFormik } from 'formik';
+import { useFormik } from 'formik';
 
 
 const useStyles = makeStyles((theme) => ({
@@ -34,30 +34,30 @@ const useStyles = makeStyles((theme) => ({
 
 
 
-const AddExecutive = () =>  {
+const AddExecutive = () => {
 
     // const [formik, setTest] = useState()
 
     const classes = useStyles();
-    const [executive, setExecutive] = useState({
-        exName: "",
-        exId: "",
-        exContact: ""
-    })
+    // const [executive, setExecutive] = useState({
+    //     exName: "",
+    //     exId: "",
+    //     exContact: ""
+    // })
 
     function addExecutive(e) {
-        e.preventDefault()
-        let ex = executive;
-        // console.log("MethodaddExecutive" + this.state)
+        // e.preventDefault()
+        let ex = e;
+        console.log("MethodaddExecutive" + ex.exId + " " + ex.exName + " " + ex.exContact)
         InventoryService.addExecutive(ex)
         // this.componentDidMount()
-        setExecutive((prevState) => {
-            return ({
-                ...prevState,
-                exName: "",
-                exContact: ""
-            })
-        })
+        // setExecutive((prevState) => {
+        //     return ({
+        //         ...prevState,
+        //         exName: "",
+        //         exContact: ""
+        //     })
+        // })
         // this.setState({
         //     exName: "",
         //     exContact: ""
@@ -65,35 +65,36 @@ const AddExecutive = () =>  {
         fetchExecutiveCount()
     }
 
-    function changeExNameHandler(event) {
-        setExecutive((prevState) => {
-            return ({
-                ...prevState,
-                exName: event.target.value
-            })
-        })
-        // this.setState({ exName: event.target.value })
-    }
-    function changeExContactHandler(event) {
-        setExecutive((prevState) => {
-            return ({
-                ...prevState,
-                exContact: event.target.value
-            })
-        })
-        // this.setState({ exContact: event.target.value })
-    }
+    // function changeExNameHandler(event) {
+    //     setExecutive((prevState) => {
+    //         return ({
+    //             ...prevState,
+    //             exName: event.target.value
+    //         })
+    //     })
+    //     // this.setState({ exName: event.target.value })
+    // }
+    // function changeExContactHandler(event) {
+    //     setExecutive((prevState) => {
+    //         return ({
+    //             ...prevState,
+    //             exContact: event.target.value
+    //         })
+    //     })
+    //     // this.setState({ exContact: event.target.value })
+    // }
 
     function fetchExecutiveCount() {
         InventoryService.getAllExecutive().then((Response) => {
             let idToSet = Response.data.length + 1
             console.log("FetchExecutiveCount" + idToSet);
-            setExecutive((prevState) => {
-                return ({
-                    ...prevState,
-                    exId: idToSet
-                })
-            })   // console.log( " >>>> " + new Date());
+            formik.setFieldValue('exId',idToSet);
+            // setExecutive((prevState) => {
+            //     return ({
+            //         ...prevState,
+            //         exId: idToSet
+            //     })
+            // })   // console.log( " >>>> " + new Date());
             // this.setState({ executive: Response.data })   // console.log( " >>>> " + new Date());
         })
     }
@@ -116,21 +117,20 @@ const AddExecutive = () =>  {
         else if (values.exContact.length > 10) {
             errors.exContact = 'Must be 10 characters or less';
         }
-        // console.log(errors)
-        // setTest(formik.touched)
+        console.log(errors)
         return errors;
     };
 
     const formik = useFormik({
         initialValues: {
-            exId: '101',
+            exId: '',
             exName: '',
-            exContact: '',
-            // email: '',
-        },
+            exContact: ''
+            },
         validate,
         onSubmit: values => {
-            console.log(values + ' <<< VAlues')
+            console.log(values + ' <<< YEH VALUE AARI HAI KYA')
+            addExecutive(values)
         },
     })
 
@@ -144,27 +144,28 @@ const AddExecutive = () =>  {
                     <TextField id="standard-basic" label="Executive Contact" value={executive.exContact} onChange={changeExContactHandler} />
                     <Button variant="contained" onClick={addExecutive} >Add Executive</Button>
                 </form> */}
-
                 <form className={classes.form} onSubmit={formik.handleSubmit}>
                     <TextField id="exId"
                         name="exId"
                         type="number"
                         onChange={formik.handleChange}
                         value={formik.values.exId} label="Executive Id" disabled />
-
                     <TextField id="exName"
                         name="exName"
                         type="text"
-                        onChange={formik.handleChange}
+                        onKeyPress={() => {if(!formik.touched.exName){ console.log('ONE TIME PLIS'); formik.setFieldTouched('exName', true)} }}
+                        onChange={(e) => { formik.handleChange(e); }}
                         value={formik.values.exName} label="Executive Name" error={formik.touched.exName && Boolean(formik.errors.exName)} helperText={formik.touched.exName && formik.errors.exName} />
                     <TextField id="exContact"
                         name="exContact"
                         type="text"
-                        onChange={formik.handleChange}
+                        onKeyPress={() => {if(!formik.touched.exContact){ console.log('ONE TIME PLIS'); formik.setFieldTouched('exContact', true)} }}
+                        onChange={(e) => { formik.handleChange(e); }}
                         value={formik.values.exContact} label="Executive Contact" error={formik.touched.exContact && Boolean(formik.errors.exContact)} helperText={formik.touched.exContact && formik.errors.exContact} />
-                    <Button variant="contained" type="submit">Add Executive</Button>
-                    {console.log("touched >> " + formik.touched.exContact )} 
+                    <Button variant="contained"  type="submit">Add Executive</Button>
+                    {console.log("touched >> " + Boolean(formik.errors.length) + " >> " + !Boolean(formik.errors.length))}
                 </form>
+
                 {/* error={formik.touched.exContact && Boolean(formik.errors.exContact)} helperText={formik.touched.exContact && formik.errors.exContact} */}
                 {/* <form onSubmit={formik.handleSubmit}>
                     <label htmlFor="email">Email Address</label>
