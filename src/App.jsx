@@ -8,13 +8,19 @@ import Navigation from './components/Navbar';
 import AssignExecutive from './components/AssignExecutive'
 import ExecutiveDeliveries from './components/executiveDeliveries'
 import { Route, Switch, BrowserRouter as Router } from 'react-router-dom'
+import { useEffect } from 'react';
+import InventoryService from './services/InventoryService'
 
 function App() {
+
+  // useEffect(
+  //   InventoryService.setupInterceptors()
+  // ,[])
 
   return (
     <div className="App">
       <Router>
-      <Navigation />
+        <Navigation />
         <Switch>
           <Route path='/inventory/all' component={InventoryComponent} ></Route>
           <Route path='/inventory/add' component={AddInventory}></Route>

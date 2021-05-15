@@ -105,7 +105,6 @@ function ExecutiveDeliveries(props) {
         data.checkOutDate = ""
         InventoryService.addInventory(data)
         filterInv()
-
     }
 
     useEffect(() => {
