@@ -7,32 +7,34 @@ const executive_all = 'http://localhost:8080/executive/all';
 const executive_assign = 'http://localhost:8080/executive/assignExecutive';
 const executive_getMyInventory = 'http://localhost:8080/executive/getMyInventory'
 const inventory_batchAdd = 'http://localhost:8080/inventory/batchAdd'
+const auth_jwt = 'http://localhost:8080/authenticate'
 
 class InventoryService {
 
-    setupInterceptors() {
-        console.log('interceptors are setup')
-        let authHeader = 'Basic ' + window.btoa('saksham' + ':' + 'saksham')
-
+    setupInterceptors(values) {
+        
         axios.interceptors.request.use(
             (config) => {
                 if (true) {
-                    config.headers.Authorization = authHeader
+                    config.headers.Authorization = 'Bearer ' +  values
                 }
                 return config
             }
         )
-        // axios.interceptors.request.use(
-        //     (config) => {
-        //         config.headers.Authorization = authHeader
-        //     }
-        // )
+    }
+
+    authAndGenToken(values){
+
+        axios.post(auth_jwt, values).then((Response) => {
+            console.log("authAndGenToken>>>>>>>>>>>>>>>>>>>>>>>> " + Response.data)
+            this.setupInterceptors(Response.data.token)
+        })
     }
 
     getAllInventory() {
         // console.log('this is consoled. >>>> ' + window.btoa('user' + ':' + '200d2cef-2c9e-4c2d-bdaf-5260350f9fd6'))
         // let authHeader = 'Basic ' + window.btoa('user' + ':' + '2e68e456-56bf-40b9-ba7a-21f4e4a86308')
-        this.setupInterceptors();
+        // this.setupInterceptors();
         return axios.get(inventory_all)
     }
 

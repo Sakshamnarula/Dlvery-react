@@ -13,7 +13,7 @@ class Navigation extends React.Component{
         <Navbar bg="primary" className="" variant="dark">
             <Navbar.Brand as={Link} to="/">DLvery</Navbar.Brand>
                 <Nav >
-                    <Nav.Link as={Link} to="/">Home</Nav.Link>
+                    <Nav.Link as={Link} to="/login">Login</Nav.Link>
                     <Nav.Link as={Link} to="/inventory/all">View Inventory</Nav.Link>
                     <Nav.Link as={Link} to="/inventory/add">Add Inventory</Nav.Link>
                     <Nav.Link as={Link} to="/executive/add">Add Executive</Nav.Link>

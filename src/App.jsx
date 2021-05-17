@@ -10,7 +10,7 @@ import ExecutiveDeliveries from './components/executiveDeliveries'
 import { Route, Switch, BrowserRouter as Router } from 'react-router-dom'
 import { useEffect } from 'react';
 import InventoryService from './services/InventoryService'
-
+import LoginPage from './components/LoginPage'
 function App() {
 
   // useEffect(
@@ -22,6 +22,7 @@ function App() {
       <Router>
         <Navigation />
         <Switch>
+          <Route path='/login' component={LoginPage} ></Route>
           <Route path='/inventory/all' component={InventoryComponent} ></Route>
           <Route path='/inventory/add' component={AddInventory}></Route>
           <Route path='/executive/add' component={AddExecutive}></Route>
